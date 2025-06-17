@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import react-toastify CSS */
+@import 'react-toastify/dist/ReactToastify.css';
+
+/* Ensure scrollbars are visible */
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Prevent horizontal overflow */
+* {
+  max-width: 100%;
+}
+
+/* Main content areas must allow scroll */
+.main-content {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+@layer utilities {
+  /* Only use scrollbar-hide for specific UI elements, never main content */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom checkbox animation */
+.checkbox-animation {
+  transition: all 0.2s ease-out;
+}
+
+.checkbox-animation:checked {
+  animation: checkboxFill 0.3s ease-out;
+}
+
+@keyframes checkboxFill {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Task completion animation */
+@keyframes taskComplete {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.98); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+.task-complete {
+  animation: taskComplete 0.4s ease-out;
+}
+
+/* Progress ring animation */
+@keyframes progressRing {
+  0% { stroke-dashoffset: 283; }
+  100% { stroke-dashoffset: var(--progress-offset); }
+}
+
+.progress-ring {
+  animation: progressRing 1s ease-out;
+}
