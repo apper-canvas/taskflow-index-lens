@@ -1,19 +1,23 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
 import { routes } from '@/config/routes';
 import SearchBar from '@/components/molecules/SearchBar';
 import QuickAddButton from '@/components/atoms/QuickAddButton';
 import ProgressRing from '@/components/atoms/ProgressRing';
 import { taskService } from '@/services';
+import { AuthContext } from './App';
 
 const Layout = () => {
-  const location = useLocation();
+const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
-
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -107,7 +111,7 @@ const Layout = () => {
             </nav>
           </div>
 
-          <div className="p-4 border-t border-gray-200">
+<div className="p-4 border-t border-gray-200 space-y-4">
             <div className="text-center">
               <p className="text-sm text-gray-500 mb-2">Today's Progress</p>
               <div className="flex items-center justify-center space-x-2">
@@ -118,6 +122,24 @@ const Layout = () => {
                 </div>
               </div>
             </div>
+            
+            {user && (
+              <div className="space-y-2">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Signed in as</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{user.firstName} {user.lastName}</p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={logout}
+                  icon={<ApperIcon name="LogOut" className="w-4 h-4" />}
+                  className="w-full text-gray-600 hover:text-gray-900"
+                >
+                  Sign Out
+                </Button>
+              </div>
+            )}
           </div>
         </aside>
 
@@ -184,7 +206,7 @@ const Layout = () => {
                   </nav>
                 </div>
 
-                <div className="p-4 border-t border-gray-200">
+<div className="p-4 border-t border-gray-200 space-y-4">
                   <div className="text-center">
                     <p className="text-sm text-gray-500 mb-2">Today's Progress</p>
                     <div className="flex items-center justify-center space-x-2">
@@ -195,6 +217,24 @@ const Layout = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  {user && (
+                    <div className="space-y-2">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500">Signed in as</p>
+                        <p className="text-sm font-medium text-gray-900 truncate">{user.firstName} {user.lastName}</p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={logout}
+                        icon={<ApperIcon name="LogOut" className="w-4 h-4" />}
+                        className="w-full text-gray-600 hover:text-gray-900"
+                      >
+                        Sign Out
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </motion.aside>
             </>

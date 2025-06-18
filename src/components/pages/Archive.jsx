@@ -53,8 +53,8 @@ const Archive = () => {
     }
 
     // Sort by completion date (most recent first)
-    return filtered.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
+return filtered.sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at);
     });
   }, [completedTasks, searchQuery]);
 
@@ -92,9 +92,9 @@ const Archive = () => {
   const groupedTasks = useMemo(() => {
     const groups = {};
     
-    filteredTasks.forEach(task => {
-      const date = format(parseISO(task.createdAt), 'yyyy-MM-dd');
-      const displayDate = format(parseISO(task.createdAt), 'MMMM d, yyyy');
+filteredTasks.forEach(task => {
+      const date = format(parseISO(task.created_at), 'yyyy-MM-dd');
+      const displayDate = format(parseISO(task.created_at), 'MMMM d, yyyy');
       
       if (!groups[date]) {
         groups[date] = {
