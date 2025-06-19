@@ -67,9 +67,9 @@ const TaskList = () => {
             case 'completed':
               return task.completed;
             case 'pending':
-              return !task.completed;
+return !task.completed;
             case 'overdue':
-              return !task.completed && task.dueDate && isPast(parseISO(task.dueDate));
+              return !task.completed && task.due_date && isPast(parseISO(task.due_date));
             default:
               return false;
           }
@@ -78,18 +78,18 @@ const TaskList = () => {
     }
 
     // Category filter
-    if (filters.category?.length > 0) {
+if (filters.category?.length > 0) {
       filtered = filtered.filter(task =>
-        filters.category.includes(task.categoryId?.toString())
+        filters.category.includes(task.category_id?.toString())
       );
     }
 
     // Sort by completed status and creation date
     return filtered.sort((a, b) => {
       if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1;
+return a.completed ? 1 : -1;
       }
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      return new Date(b.created_at) - new Date(a.created_at);
     });
   }, [tasks, searchQuery, filters]);
 
