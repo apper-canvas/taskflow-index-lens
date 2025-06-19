@@ -96,8 +96,8 @@ const Categories = () => {
     }
   };
 
-const getTaskCount = (categoryId) => {
-    return tasks.filter(task => task.category_id === categoryId).length;
+  const getTaskCount = (categoryId) => {
+    return tasks.filter(task => task.categoryId === categoryId).length;
   };
 
   const colorOptions = [
@@ -269,7 +269,7 @@ const getTaskCount = (categoryId) => {
                     <div>
                       <h3 className="font-medium text-gray-900 truncate">
                         {category.name}
-</h3>
+                      </h3>
                       <p className="text-sm text-gray-500">
                         {getTaskCount(category.Id)} tasks
                       </p>
